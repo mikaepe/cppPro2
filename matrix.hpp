@@ -84,10 +84,18 @@ class Matrix{
     void printMatrix() {
       std::cout << "[" ;
       for (int i = 0; i<m; i++) {
-	for (int j = 0; j<m; j++) {
-	  std::cout << a[i][j] << ", ";
+	if (i != 0) {
+	  std::cout << " ";
 	}
-	std::cout << std::endl;
+	for (int j = 0; j<m; j++) {
+	  std::cout << a[i][j];
+	  if (j != m-1) {
+	    std::cout << ", ";
+	  }
+	}
+	if (i != m-1) {
+	  std::cout << std::endl;
+	}
       }
       std::cout << "]" << std::endl;
     }
