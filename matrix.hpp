@@ -23,9 +23,9 @@ class Matrix{
 	}
       }
     }
-      
-    // Matrix(const& Matrix);
 
+    // TODO copy constructor and deconstructors
+      
     // OPERATOR OVERLOADINGS
     Matrix& operator=(const Matrix& M) {
       if (this != &M) {
@@ -48,6 +48,9 @@ class Matrix{
       return *this;
     }
 
+    // TODO operators *= and "*"
+    
+
     // FUNCTIONS
     void fillTestMatrix() {
       for (int i = 0; i<m; i++) {
@@ -65,6 +68,19 @@ class Matrix{
       }
     }
 
+    void identity() {
+      for (int i = 0; i<m; i++) {
+	for (int j = 0; j<m; j++) {
+	  if (i == j) {
+	    a[i][j] = 1;
+	  }
+	  else {
+	    a[i][j] = 0;
+	  }
+	}
+      }
+    }
+
     void printMatrix() {
       std::cout << "[" ;
       for (int i = 0; i<m; i++) {
@@ -75,7 +91,8 @@ class Matrix{
       }
       std::cout << "]" << std::endl;
     }
-    //void printMatrix() const {}
+
+    // TODO norm
 
 };
 

@@ -22,7 +22,7 @@ int main(void){
   mm = m;
   mm.printMatrix();
 
-  mm += mm;
+  m.identity();
   mm.printMatrix();
 
   return 0;
