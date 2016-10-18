@@ -6,8 +6,10 @@ using namespace std;
 
 int main(void){
   Matrix m(4);
+  cout << "Print 1: " << endl;
   m.printMatrix();
   m.fillTestMatrix();
+  cout << "Print 2: " << endl;
   m.printMatrix();
   
   double b[16];
@@ -16,14 +18,18 @@ int main(void){
     b[i] = i;
   }
   m.fillMatrix(b);
+  cout << "Print 3: " << endl;
   m.printMatrix();
 
   Matrix mm;
+  Matrix mmm(m);
   mm = m;
+  cout << "Print 4: " << endl;
   mm.printMatrix();
 
   m.identity();
-  mm.printMatrix();
+  cout << "Print 5: " << endl;
+  mmm.printMatrix();
 
   return 0;
 }
