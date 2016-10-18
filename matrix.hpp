@@ -4,6 +4,8 @@
 #ifndef MATRIX_HPP
 #define MATRIX_HPP
 
+#include<cmath>
+
 class Matrix {
 
 private:
@@ -36,7 +38,7 @@ public:
         }
     }
 
-    // deconstructor 
+    // destructor
     ~Matrix() {
         for (int i = 0; i < m; i++) {
             delete[] a[i];
@@ -50,14 +52,14 @@ public:
         if (this == &M) {
             return *this;
         }
-        if (m == M.m){
+        if (m == M.m) { // if same dimension, can just change the elements in a
             for (int i = 0; i < m; i++) {
                 for (int j = 0; j < m; j++) {
                     a[i][j] = M.a[i][j];
                 }
             }
         } else {
-            if (!a) {
+            if (!a) { // if a initialized, delete a
                 for (int i = 0; i < m; i++) {
                     delete[] a[i];
                 }
@@ -88,7 +90,49 @@ public:
         return *this;
     }
 
-    // TODO operators *= and "*"
+    // operators *= and "*"
+    const Matrix operator*=(const Matrix &M) {
+        if (m != M.m) {
+            std::cerr << "Matrix dimensions mismatch in sum, exiting.." << std::endl;
+            exit(1);
+        }
+        double **temp_a = new double *[m];
+        for (int i = 0; i < m; i++) {
+            temp_a[i] = new double[m];
+            for (int j = 0; j < m; j++) {
+                temp_a[i][j] = 0;
+                for (int l = 0; l < m; l++) {
+                    temp_a[i][j] += a[i][l] * M.a[l][j];
+                }
+            }
+        }
+        for (int i = 0; i < m; i++) {
+            delete[] a[i];
+        }
+        delete[] a;
+        a = temp_a;
+
+        return *this;
+
+    }
+
+    const Matrix operator*(const Matrix &M) const {
+        if (m != M.m) {
+            std::cerr << "Matrix dimensions mismatch in sum, exiting.." << std::endl;
+            exit(1);
+        }
+
+        Matrix C(m);
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < m; j++) {
+                for (int l = 0; l < m; l++) {
+                    C.a[i][j] += a[i][l] * M.a[l][j];
+                }
+            }
+        }
+        return C;
+
+    }
 
 
     // FUNCTIONS
@@ -139,7 +183,20 @@ public:
         std::cout << "]" << std::endl;
     }
 
-    // TODO norm
+    // norm using inf norm
+    double norm() {
+        double norm = 0, temp_sum;
+        for (int i = 0; i < m; i++) {
+            temp_sum = 0;
+            for (int j = 0; j < m; j++) {
+                temp_sum += abs(a[i][j]);
+            }
+            if (temp_sum > norm) {
+                norm = temp_sum;
+            }
+        }
+        return norm;
+    }
 
 };
 
