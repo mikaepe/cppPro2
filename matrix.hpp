@@ -116,6 +116,16 @@ public:
 
     }
 
+    const Matrix operator*=(const double d) {
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < m; j++) {
+                a[i][j] *= d;
+            }
+        }
+        return *this;
+
+    }
+
     const Matrix operator*(const Matrix &M) const {
         if (m != M.m) {
             std::cerr << "Matrix dimensions mismatch in sum, exiting.." << std::endl;
