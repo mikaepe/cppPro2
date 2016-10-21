@@ -44,6 +44,8 @@ int main(void) {
   Matrix mm2(sizE);
   mm2.makeMatrix();
   mm2.printMatrix();
+  n = mm2.norm();
+  cout << "Norm 1: " << n << endl;
 
   return 0;
 }
