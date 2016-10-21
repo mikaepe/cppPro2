@@ -162,6 +162,17 @@ public:
         }
     }
 
+    void makeMatrix() {
+      for (int i = 0; i < m; i++) {
+	std::cout << "row " << i+1 << ":" << std::endl;
+	std::cout << "(elements separated by blanks)" << std::endl;
+	for (int j = 0; j < m; j++) {
+	  std::cin >> a[i][j];
+	}
+	std::cout << std::endl;
+      }
+    }
+
     void identity() {
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < m; j++) {
