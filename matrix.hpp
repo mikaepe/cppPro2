@@ -210,7 +210,7 @@ public:
         for (int i = 0; i < m; i++) {
             temp_sum = 0;
             for (int j = 0; j < m; j++) {
-                temp_sum += abs(a[i][j]);
+                temp_sum += fabs(a[i][j]);
             }
             if (temp_sum > norm) {
                 norm = temp_sum;
