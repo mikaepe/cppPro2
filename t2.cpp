@@ -20,6 +20,7 @@ using namespace std;
 // Function Declarations 	::	::	::	::
 
 Matrix myexp(int m, Matrix A);
+Matrix myexpWoH(int m, Matrix A, double tol=1e-10);
 
 /* main function, calls myexp and compares with given exp
  * blah
@@ -27,11 +28,13 @@ Matrix myexp(int m, Matrix A);
  */
 int main(int argc, char *argv[])
 {
-  int m = 2;
-  double a[4] = {1, 2, 3, 4};
+  int m = 3;
+  double a[9] = {1, 2, 3, 1, 2, 3, 1, 2, 3};
   Matrix A(m);
   A.fillMatrix(a);
   A.printMatrix();
+
+    cout << fixed << setprecision(12);
 
   double* expAarray = r8mat_expm1(m, a);
   Matrix expA(m);
@@ -42,6 +45,10 @@ int main(int argc, char *argv[])
   Matrix myexpA = myexp(m,A);
   cout << "myexp: exp(A) = " << endl;
   myexpA.printMatrix();
+
+    Matrix myexpAwoH = myexpWoH(m,A);
+    cout << "myexpwoH: exp(A) = " << endl;
+    myexpAwoH.printMatrix();
 
 
   return 0;
@@ -64,4 +71,28 @@ Matrix myexp(int m, Matrix A)
     res += I;			// TODO : Använd tol på lämpligt vis
   }
   return res;
+}
+
+
+/* Function myexpWoH is an straight forward implementation of the exponential
+ * functions series representation i.e. the McLaurin
+ * series without Horners algorithm
+ */
+Matrix myexpWoH(int m, Matrix A, double tol)
+{
+    double norm = (double) 1;
+    Matrix term(m);
+    Matrix res(m);
+    term.identity();
+    res.identity();
+    int i = 1;
+    while (norm > tol)
+    {
+        term *= A;
+        term *= ((double) 1 / (double) i);
+        norm = term.norm();
+        res += term;
+        i++;
+    }
+    return res;
 }

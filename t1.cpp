@@ -13,6 +13,7 @@
 // Function Declarations 	::	::	::	::
 
 double myexp(double x, double tol=1e-10);
+double myexpWoH(double x, double tol=1e-10);
 
 
 // Function Definitions		::	::	::	::
@@ -35,13 +36,16 @@ int main(int argc, char *argv[])
   double myexpx = myexp(x);
   cout << "myexp: exp(x) = " << myexpx << endl;
 
+    double myexpxwoH = myexpWoH(x);
+    cout << "myexpwoH: exp(x) = " << myexpxwoH << endl;
+
 
   return 0;
 }
 
-/* Function myexp is an implementation of the exponential
+/* Function myexpWoH is an straight forward implementation of the exponential
  * functions series representation i.e. the McLaurin
- * series. Horners algorithm used as in proj. 1.
+ * series without Horners algorithm
  */
 double myexp(double x, double tol)
 {
@@ -52,4 +56,19 @@ double myexp(double x, double tol)
     res = 1+x*res/i;			// TODO : Använd tol på lämpligt vis
   }
   return res;
+}
+
+double myexpWoH(double x, double tol)
+{
+    double res = 1;
+    double term = 1;
+    for (int i = 1; i<1000; i++)
+    {
+        term *= (x/ (double) i);
+        if (term < tol){
+            break;
+        }
+        res += term;
+    }
+    return res;
 }
