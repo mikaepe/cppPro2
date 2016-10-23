@@ -12,8 +12,8 @@
 
 // Function Declarations 	::	::	::	::
 
-double myexp(double x, double tol=1e-10);
-double myexpWoH(double x, double tol=1e-10);
+double myexp(double x, double tol=1e-14);
+double myexpWoH(double x, double tol=1e-14);
 
 
 // Function Definitions		::	::	::	::
@@ -28,36 +28,56 @@ int main(int argc, char *argv[])
 {
   double x;
   cout << "x = "; cin >> x;
-  cout << fixed << setprecision(12);
+  cout << fixed << setprecision(15);
   
+
   double expx = exp(x);
-  cout << "cmath: exp(x) = " << expx << endl;
-
   double myexpx = myexp(x);
-  cout << "myexp: exp(x) = " << myexpx << endl;
+  double myexpxwoH = myexpWoH(x);
 
-    double myexpxwoH = myexpWoH(x);
-    cout << "myexpwoH: exp(x) = " << myexpxwoH << endl;
+  cout << "cmath:    exp(x) = " << expx << endl;
+  cout << "myexp:    exp(x) = " << myexpx << endl;
+  cout << "myexpwoH: exp(x) = " << myexpxwoH << endl;
 
 
   return 0;
 }
 
+
+/* NEW IMPLENTATION OF HORNERS WITH TOL
+ */
+double myexp(double x, double tol)
+{
+  int req_iter = 2;			// requested iterations
+  double res1 = 1, res2 = 0;		// initialize values to start looping
+  int maxiter = 100;			// max iterations to be performed
+
+  // stop when the last term is less than tolerance i.e. abs(res1-res2)
+  while (req_iter < maxiter && abs(res1-res2) > tol)
+  {
+    req_iter ++;
+    res2 = res1;
+    res1 = 1;
+    for (int i = req_iter; i>0; i--)
+    {					// Horners algorithm (to avoid
+      res1 = 1+x*res1/i;		// adding small doubles to large)
+    }
+  }
+
+  if (req_iter == maxiter)
+  {
+    cout << "max iterations performed, tolerance not attained" << endl;
+  }
+  cout << "iterations performed (Horners): " << req_iter << endl;
+
+  return res1;
+}
+
+
 /* Function myexpWoH is an straight forward implementation of the exponential
  * functions series representation i.e. the McLaurin
  * series without Horners algorithm
  */
-double myexp(double x, double tol)
-{
-  double res;
-  res = 1;
-  for (int i = 10; i > 0; i--)
-  {
-    res = 1+x*res/i;			// TODO : Använd tol på lämpligt vis
-  }
-  return res;
-}
-
 double myexpWoH(double x, double tol)
 {
     double res = 1;
@@ -66,7 +86,8 @@ double myexpWoH(double x, double tol)
     {
         term *= (x/ (double) i);
         if (term < tol){
-            break;
+	  cout << "iterations performed     (WoH): " << i << endl;
+	  break;
         }
         res += term;
     }
