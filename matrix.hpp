@@ -6,48 +6,64 @@
 
 #include<cmath>
 
-class Matrix {
+/* Matrix class
+ * M = Matrix(5) gives 5x5-matrix of zeros.
+ *
+ */
 
-private:
+class Matrix 
+{
+  private:
     int m;
     double **a;
+  
+  public:
+    
+    // CONSTRUCTORS	:::	:::	:::	:::	:::
+    
+    Matrix() {};            	// Default constr.
 
-public:
-    // CONSTRUCTORS
-    Matrix() {};            // Default constructor
-
-    Matrix(int mm) : m(mm) {        // Initializes m and a... (?)
-        a = new double *[m];
-        for (int i = 0; i < m; i++) {
-            a[i] = new double[m];
-            for (int j = 0; j < m; j++) {
-                a[i][j] = 0;
-            }
-        }
+    // Initializes a square matrix of zeros
+    Matrix(int mm) : m(mm) {
+      a = new double *[m];	// array of pointers to doubles ?? TODO
+      for (int i = 0; i < m; i++) {
+	a[i] = new double[m];	// array of doubles
+	for (int j = 0; j < m; j++) {
+	  a[i][j] = 0;		// 0's in all elements
+	}
+      }
     }
 
-    // copy constructor
+    /* Copy constructor, usage:
+     * M2 = M, where M is Matrix object
+     */
     Matrix(const Matrix &M) {
-        m = M.m;
-        a = new double *[m];
-        for (int i = 0; i < m; i++) {
-            a[i] = new double[m];
-            for (int j = 0; j < m; j++) {
-                a[i][j] = M.a[i][j];
-            }
-        }
+      m = M.m;			// size of square matrix	
+      a = new double *[m];	// constructs a using values from M
+      for (int i = 0; i < m; i++) {
+	a[i] = new double[m];
+	for (int j = 0; j < m; j++) {
+	  a[i][j] = M.a[i][j];	// each element from M
+	}
+      }
     }
 
-    // destructor
+    // Destructor
     ~Matrix() {
-        for (int i = 0; i < m; i++) {
-            delete[] a[i];
-        }
-        delete[] a;
-        a = NULL;
+      for (int i = 0; i < m; i++) {
+	delete[] a[i];
+      }
+      delete[] a;
+      a = NULL;
     }
 
-    // OPERATOR OVERLOADINGS
+
+    // OPERATOR OVERLOADINGS	:::	:::	:::	:::
+
+    /* Equality operator:
+     * Equates Matrix to M (other Matrix object)
+     * Usage: TODO
+     */
     Matrix &operator=(const Matrix &M) {
         if (this == &M) {
             return *this;
@@ -145,23 +161,37 @@ public:
     }
 
 
-    // FUNCTIONS
+    // FUNCTIONS	:::	:::	:::	:::	:::
+
+    /* Usage: A.fillTestMatrix(); where A is a Matrix object
+     * Result: A is a matrix with elements A_ij = i*j
+     */
     void fillTestMatrix() {
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < m; j++) {
-                a[i][j] = i * j;
-            }
-        }
+      for (int i = 0; i < m; i++) {
+	for (int j = 0; j < m; j++) {
+	  a[i][j] = (i+1)*(j+1);
+	}
+      }
     }
 
+    /* Usage: A.fillMatrix(b); where b is an array of 
+     * 	length m*m of doubles
+     * Result: A matrix with columns from m elements from b.
+     * 	First column is first m elements, 2nd col is m+1:2m elements
+     *	etc.
+     */
     void fillMatrix(double b[]) {
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < m; j++) {
-                a[i][j] = b[j * m + i];
-            }
-        }
+      for (int i = 0; i < m; i++) {
+	for (int j = 0; j < m; j++) {
+	  a[i][j] = b[j * m + i];
+	}
+      }
     }
 
+    /* Usage: A.makeMatrix(m); where m is an int of requested size
+     * 	for the matrix.
+     * Result: The user is prompted to fill the rows of the matrix
+     */
     void makeMatrix() {
       for (int i = 0; i < m; i++) {
 	std::cout << "row " << i+1 << ":" << std::endl;
@@ -173,38 +203,47 @@ public:
       }
     }
 
+    /* Usage: A.identity(); where A is Matrix object
+     * Result: A identity matrix (1's on diag, 0's rest)
+     */
     void identity() {
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < m; j++) {
-                if (i == j) {
-                    a[i][j] = 1;
-                } else {
-                    a[i][j] = 0;
-                }
-            }
-        }
+      for (int i = 0; i < m; i++) {
+	for (int j = 0; j < m; j++) {
+	  if (i == j) {
+	    a[i][j] = 1;
+	  } else {
+	    a[i][j] = 0;
+	  }
+	}
+      }
     }
 
+    /* Usage: A.printMatrix(); where A is Matrix object.
+     * Result: A is printed to the terminal
+     */
     void printMatrix() {
-        std::cout << "[";
+        std::cout << "[";		// Left bracket
         for (int i = 0; i < m; i++) {
             if (i != 0) {
-                std::cout << " ";
+                std::cout << " ";	// To align left column
             }
             for (int j = 0; j < m; j++) {
                 std::cout << a[i][j];
                 if (j != m - 1) {
-                    std::cout << ", ";
+                    std::cout << ", ";	// Separate elements in rows
                 }
             }
             if (i != m - 1) {
-                std::cout << std::endl;
+                std::cout << std::endl;	// New row
             }
         }
-        std::cout << "]" << std::endl;
+        std::cout << "]" << std::endl;	// Right bracket 
     }
 
-    // norm using inf norm
+    /* Matrix infinity norm norm_inf(A) = max(norm_1(r1),...,norm_1(rm))
+     * Usage: x = A.norm(); where A is Matrix object.
+     * Result: x is norm_inf(A)
+     */
     double norm() {
         double norm = 0, temp_sum;
         for (int i = 0; i < m; i++) {
