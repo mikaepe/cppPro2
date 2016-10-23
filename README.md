@@ -10,3 +10,8 @@ t2.cpp		- same as t1 but for matrices. Compares own implementation
 		  with implementation from "r8mat_expm1.h"
 testMatrix.cpp	- A bunch of tests for matrix.hpp
 r8xxx		- functions to compare with own implementations
+
+
+
+TODO: borde fixa så vi kan ta norm(A-B), A & B matriser, för att kunna
+kolla på seriernas noggrannhet.

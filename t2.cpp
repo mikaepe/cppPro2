@@ -14,10 +14,11 @@
 // Function Definitions		::	::	::	::
 
 using namespace std;
+
+#include "r8lib.cpp"
 #include "r8lib.h"
-//#include "r8lib.cpp"
+#include "r8mat_expm1.cpp"
 #include "r8mat_expm1.h"
-//#include "r8mat_expm1.cpp"
 
 // Function Declarations 	::	::	::	::
 
@@ -32,11 +33,15 @@ int main(int argc, char *argv[])
 {
   int m = 3;
   double a[9] = {1, 2, 3, 1, 2, 3, 1, 2, 3};
+  /* NILPOTENT:
+  int m = 3;
+  double a[16] = {0,0,0,2,0,0,1,2,0};
+  */
   Matrix A(m);
   A.fillMatrix(a);
   A.printMatrix();
-
-    cout << fixed << setprecision(12);
+  
+  cout << fixed << setprecision(5);
 
   double* expAarray = r8mat_expm1(m, a);
   Matrix expA(m);
@@ -47,11 +52,10 @@ int main(int argc, char *argv[])
   Matrix myexpA = myexp(m,A);
   cout << "myexp: exp(A) = " << endl;
   myexpA.printMatrix();
-
-    Matrix myexpAwoH = myexpWoH(m,A);
-    cout << "myexpwoH: exp(A) = " << endl;
-    myexpAwoH.printMatrix();
-
+  
+  Matrix myexpAwoH = myexpWoH(m,A);
+  cout << "myexpwoH: exp(A) = " << endl;
+  myexpAwoH.printMatrix();
 
   return 0;
 }

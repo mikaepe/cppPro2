@@ -109,7 +109,7 @@ class Matrix
     // operators *= and "*"
     const Matrix operator*=(const Matrix &M) {
         if (m != M.m) {
-            std::cerr << "Matrix dimensions mismatch in sum, exiting.." << std::endl;
+            std::cerr << "Matrix dimensions mismatch, exiting.." << std::endl;
             exit(1);
         }
         double **temp_a = new double *[m];
@@ -132,6 +132,7 @@ class Matrix
 
     }
 
+    // Operator * for scalar multiplication
     const Matrix operator*=(const double d) {
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < m; j++) {
