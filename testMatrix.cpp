@@ -47,5 +47,12 @@ int main(void) {
   n = mm2.norm();
   cout << "Norm 1: " << n << endl;
 
+  /* Funkar inte
+  Matrix mm3;
+  mm3 = (mm2 + mm2);
+  cout << "Print 6:" << endl;
+  mm3.printMatrix();
+  */
+
   return 0;
 }
