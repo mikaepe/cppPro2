@@ -16,9 +16,9 @@
 using namespace std;
 
 #include "r8lib.cpp"
-#include "r8lib.h"
+//#include "r8lib.h"		// Behövs inte (r8lib.cpp öppnar den)
 #include "r8mat_expm1.cpp"
-#include "r8mat_expm1.h"
+//#include "r8mat_expm1.h"	// Behövs inte heller
 
 // Function Declarations 	::	::	::	::
 
@@ -86,7 +86,7 @@ Matrix myexp(int m, Matrix A)
  */
 Matrix myexpWoH(int m, Matrix A, double tol)
 {
-    double norm = (double) 1;
+    double norm = 1.0;
     Matrix term(m);
     Matrix res(m);
     term.identity();
