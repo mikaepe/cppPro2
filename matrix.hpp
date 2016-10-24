@@ -93,6 +93,7 @@ class Matrix
         return *this;
     }
 
+
     Matrix &operator+=(const Matrix &M) {
         if (m != M.m) {
             std::cerr << "Matrix dimensions mismatch in sum, exiting.." << std::endl;
@@ -104,6 +105,24 @@ class Matrix
             }
         }
         return *this;
+    }
+
+
+    /* Subtract Matrix operator
+     * Usage: M1 -= M2; where M1 and M2 are Matrix objects with same dimension
+     * Result M1 = M1-M2
+     */
+    Matrix &operator-=(const Matrix &M) {
+      if (m != M.m) {
+	std::cerr << "Matrix dimensions mismatch in sum, exiting.." << std::endl;
+	exit(1);
+      }
+      for (int i = 0; i < m; i++) {
+	for (int j = 0; j < m; j++) {
+	  a[i][j] -= M.a[i][j];
+	}
+      }
+      return *this;
     }
 
     // operators *= and "*"
@@ -176,10 +195,10 @@ class Matrix
     }
 
     /* Usage: A.fillMatrix(b); where b is an array of 
-     * 	length m*m of doubles
+     * length m*m of doubles
      * Result: A matrix with columns from m elements from b.
-     * 	First column is first m elements, 2nd col is m+1:2m elements
-     *	etc.
+     * First column is first m elements, 2nd col is m+1:2m elements
+     * etc.
      */
     void fillMatrix(double b[]) {
       for (int i = 0; i < m; i++) {
@@ -190,7 +209,7 @@ class Matrix
     }
 
     /* Usage: A.makeMatrix(m); where m is an int of requested size
-     * 	for the matrix.
+     * for the matrix.
      * Result: The user is prompted to fill the rows of the matrix
      */
     void makeMatrix() {

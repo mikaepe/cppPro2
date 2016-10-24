@@ -54,5 +54,11 @@ int main(void) {
   mm3.printMatrix();
   */
 
+  Matrix mm3 = mm2;
+  mm3 -= mm2;
+  cout << "Print 6: " << endl;
+  mm3.printMatrix();
+  
+
   return 0;
 }
