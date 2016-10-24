@@ -278,6 +278,10 @@ class Matrix
         return norm;
     }
 
+    int sizeMatrix() {
+      return m;
+    }
+
 };
 
 #endif

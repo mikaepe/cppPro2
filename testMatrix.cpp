@@ -58,6 +58,11 @@ int main(void) {
   mm3 -= mm2;
   cout << "Print 6: " << endl;
   mm3.printMatrix();
+
+  Matrix mm4(mm2.sizeMatrix());
+  mm4 -= mm2;
+  cout << "Print 7: " << endl;
+  mm4.printMatrix();
   
 
   return 0;
