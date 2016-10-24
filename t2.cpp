@@ -57,6 +57,19 @@ int main(int argc, char *argv[])
   cout << "myexpwoH: exp(A) = " << endl;
   myexpAwoH.printMatrix();
 
+  Matrix M(A.sizeMatrix());
+  M = expA;
+  M -= myexpA;
+  double n1 = M.norm();
+  M = expA;
+  M -= myexpAwoH;
+  double n2 = M.norm();
+
+  cout << fixed << setprecision(15);
+
+  cout << "norm matlab-horner = " << n1 << endl;
+  cout << "norm matlab-woH    = " << n2 << endl;
+
   return 0;
 }
 
