@@ -49,10 +49,15 @@
 \maketitle
 
 \subsubsection*{Task 1}
-In this task we implemented the Taylor series for $\exp (x)$, that is $\exp(x) = \sum_{n=0}^\infty \frac{x^{n}}{n!}$. 
-This was done by a straight-forward implementation of the sum which included all terms until the first term less than $tol$.
-
-To validate our routine we check it against the exponential function from the standard library for some values of $x$. The results are shown in \ref{TABtask1}.
+In this task we implemented the Taylor series for $\exp (x)$, that is 
+\begin{equation*}
+  \exp(x) = \sum_{n=0}^\infty \frac{x^{n}}{n!}.
+\end{equation*}
+This was done by a straight-forward implementation of the 
+sum which included all terms until the first term less than \texttt{tol}.
+To validate our routine we check it against the exponential function from the 
+standard library (i.e. \texttt{cmath}) for some values of $x$. 
+The results are shown in \ref{TABtask1}.
 
 
 \begin{table}[!ht]
@@ -60,11 +65,7 @@ To validate our routine we check it against the exponential function from the st
   \begin{minipage}[t]{105mm}
     \caption{
       Performance of the Taylor series implementation shown for selected values of 
-      $x$ and $N$. The values of \texttt{sx} and \texttt{sTx} are the computed values
-      from the \texttt{cmath} builtin function and the implemented Taylor polynomial to degree $2N+1
-      $ for $\sin x$
-      respectively,
-      same for \texttt{cx} and \texttt{cTx} for $\cos x$.
+      $x$. The tolerance used was set to \texttt{tol = 1e-10}. 
     } 
     \label{TABtask1}
   \end{minipage}
