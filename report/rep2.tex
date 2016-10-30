@@ -57,7 +57,7 @@ This was done by a straight-forward implementation of the
 sum which included all terms until the first term less than \texttt{tol}.
 To validate our routine we check it against the exponential function from the 
 standard library (i.e. \texttt{cmath}) for some values of $x$. 
-The results are shown in \ref{TABtask1}.
+The results are shown in Table \ref{TABtask1}.
 
 
 \begin{table}[!ht]
@@ -72,30 +72,9 @@ The results are shown in \ref{TABtask1}.
 
   \vspace{5mm}
   \begin{tabular}{l l l l l l} 
-    \texttt{x}&\texttt{N}&\texttt{sx} & \texttt{sTx} & \texttt{cx} & \texttt{cTx} \\
+    \texttt{x}&\texttt{N}&\texttt{cmath} & \texttt{myexp} & \texttt{myexpH} \\
     \hline
-    \texttt{-1}	& \texttt{1}	
-    & \texttt{-0.84147098} & \texttt{-0.83333333} & \texttt{0.54030231} & \texttt{0.50000000}	\\
-    \texttt{-1}	& \texttt{2}	
-    & \texttt{-0.84147098} & \texttt{-0.84166667} & \texttt{0.54030231} & \texttt{0.54166667}	\\
-    \hline
-    \texttt{2}	& \texttt{1}	
-    & \texttt{0.90929743} & \texttt{0.66666667} & \texttt{-0.41614684} & \texttt{-1.00000000}	\\
-    \texttt{2}	& \texttt{2}	
-    & \texttt{0.90929743} & \texttt{0.93333333} & \texttt{-0.41614684} & \texttt{-0.33333333}	\\
-    \texttt{2}	& \texttt{5}	
-    & \texttt{0.90929743} & \texttt{0.90929614} & \texttt{-0.41614684} & \texttt{-0.41615520}	\\
-    \hline
-    \texttt{10}	& \texttt{5}	
-    & \texttt{-0.54402111} & \texttt{-1056.93923361} &\texttt{-0.83907153}&\texttt{-1296.79541446}\\
-    \texttt{10}	& \texttt{10}	
-    & \texttt{-0.54402111} & \texttt{2.76109093} & \texttt{-0.83907153} & \texttt{6.66456434}	\\
-     \texttt{10}	& \texttt{15}	
-    & \texttt{-0.54402111} & \texttt{-0.54412728} & \texttt{-0.83907153} & \texttt{-0.83942021}	\\
-     \texttt{10}	& \texttt{20}	
-    & \texttt{-0.54402111} & \texttt{-0.54402111} & \texttt{-0.83907153} & \texttt{-0.83907153}	\\
- 
- 
+    \texttt{-1}	& \texttt{1}	&	
 
   \end{tabular}
 \end{table}
