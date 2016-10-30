@@ -91,6 +91,10 @@ class Matrix
       return *this;
     }
 
+   /* += operator
+   * Usage: M1 += M2; where M1 and M2 are Matrix objects with same dimension
+   * Result M1 = M1+M2
+   */
     Matrix &operator+=(const Matrix &M) {
       if (m != M.m) {
 	std::cerr << "Dimensions mismatch in sum, exiting.." << std::endl;
@@ -122,7 +126,7 @@ class Matrix
       return *this;
     }
 
-    // operators *= and "*"
+    // Operator *= for matrix multiplication
     const Matrix operator*=(const Matrix &M) {
       if (m != M.m) {
 	std::cerr << "Matrix dimensions mismatch, exiting.." << std::endl;
@@ -147,7 +151,7 @@ class Matrix
       return *this;
     }
 
-    // Operator * for scalar multiplication
+    // Operator *= for multiplying matrix with a scalar
     const Matrix operator*=(const double d) {
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < m; j++) {
@@ -158,6 +162,7 @@ class Matrix
 
     }
 
+    // Operator * for matrix multiplication
     const Matrix operator*(const Matrix &M) const {
         if (m != M.m) {
 	  std::cerr << "Dimensions mismatch, exiting.." << std::endl;
@@ -239,7 +244,7 @@ class Matrix
       std::cout << "]" << std::endl;	// Right bracket 
     }
 
-    /* Matrix infinity norm norm_inf(A) = max(norm_1(r1),...,norm_1(rm))
+    /* Matrix infinity norm: norm_inf(A) = max(norm_1(r1),...,norm_1(rm))
      * Usage: x = A.norm(); where A is Matrix object.
      * Result: x is norm_inf(A)
      */
