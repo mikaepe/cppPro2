@@ -24,9 +24,9 @@ class Matrix
 
     // Initializes a square matrix of zeros
     Matrix(int mm) : m(mm) {
-      a = new double *[m];	// array of pointers to doubles ?? TODO
+      a = new double *[m];
       for (int i = 0; i < m; i++) {
-	a[i] = new double[m];	// array of doubles
+	a[i] = new double[m];
 	for (int j = 0; j < m; j++) {
 	  a[i][j] = 0;		// 0's in all elements
 	}
@@ -63,46 +63,45 @@ class Matrix
      * Equates Matrix to M (other Matrix object)
      */
     Matrix &operator=(const Matrix &M) {
-        if (this == &M) {
-            return *this;
-        }
-        if (m == M.m) { // if same dimension, can just change the elements in a
-            for (int i = 0; i < m; i++) {
-                for (int j = 0; j < m; j++) {
-                    a[i][j] = M.a[i][j];
-                }
-            }
-        } else {
-            if (!a) { // if a initialized, delete a
-                for (int i = 0; i < m; i++) {
-                    delete[] a[i];
-                }
-                delete[] a;
-            }
-            m = M.m;
-            a = new double *[m];
-            for (int i = 0; i < m; i++) {
-                a[i] = new double[m];
-                for (int j = 0; j < m; j++) {
-                    a[i][j] = M.a[i][j];
-                }
-            }
-        }
-        return *this;
+      if (this == &M) {
+	return *this;
+      }
+      if (m == M.m) { // if same dimension, just change the elements
+	for (int i = 0; i < m; i++) {
+	  for (int j = 0; j < m; j++) {
+	    a[i][j] = M.a[i][j];
+	  }
+	}
+      } else {
+	if (!a) { // if a initialized, delete a
+	  for (int i = 0; i < m; i++) {
+	    delete[] a[i];
+	  }
+	  delete[] a;
+	}
+	m = M.m;
+	a = new double *[m];
+	for (int i = 0; i < m; i++) {
+	  a[i] = new double[m];
+	  for (int j = 0; j < m; j++) {
+	    a[i][j] = M.a[i][j];
+	  }
+	}
+      }
+      return *this;
     }
 
-
     Matrix &operator+=(const Matrix &M) {
-        if (m != M.m) {
-            std::cerr << "Matrix dimensions mismatch in sum, exiting.." << std::endl;
-            exit(1);
-        }
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < m; j++) {
-                a[i][j] += M.a[i][j];
-            }
-        }
-        return *this;
+      if (m != M.m) {
+	std::cerr << "Dimensions mismatch in sum, exiting.." << std::endl;
+	exit(1);
+      }
+      for (int i = 0; i < m; i++) {
+	for (int j = 0; j < m; j++) {
+	  a[i][j] += M.a[i][j];
+	}
+      }
+      return *this;
     }
 
 
@@ -112,7 +111,7 @@ class Matrix
      */
     Matrix &operator-=(const Matrix &M) {
       if (m != M.m) {
-	std::cerr << "Matrix dimensions mismatch in sum, exiting.." << std::endl;
+	std::cerr << "Matrix dimensions mismatch, exiting.." << std::endl;
 	exit(1);
       }
       for (int i = 0; i < m; i++) {
@@ -125,28 +124,27 @@ class Matrix
 
     // operators *= and "*"
     const Matrix operator*=(const Matrix &M) {
-        if (m != M.m) {
-            std::cerr << "Matrix dimensions mismatch, exiting.." << std::endl;
-            exit(1);
-        }
-        double **temp_a = new double *[m];
-        for (int i = 0; i < m; i++) {
-            temp_a[i] = new double[m];
-            for (int j = 0; j < m; j++) {
-                temp_a[i][j] = 0;
-                for (int l = 0; l < m; l++) {
-                    temp_a[i][j] += a[i][l] * M.a[l][j];
-                }
-            }
-        }
-        for (int i = 0; i < m; i++) {
-            delete[] a[i];
-        }
-        delete[] a;
-        a = temp_a;
+      if (m != M.m) {
+	std::cerr << "Matrix dimensions mismatch, exiting.." << std::endl;
+	exit(1);
+      }
+      double **temp_a = new double *[m];
+      for (int i = 0; i < m; i++) {
+	temp_a[i] = new double[m];
+	for (int j = 0; j < m; j++) {
+	  temp_a[i][j] = 0;
+	  for (int l = 0; l < m; l++) {
+	    temp_a[i][j] += a[i][l] * M.a[l][j];
+	  }
+	}
+      }
+      for (int i = 0; i < m; i++) {
+	delete[] a[i];
+      }
+      delete[] a;
+      a = temp_a;
 
-        return *this;
-
+      return *this;
     }
 
     // Operator * for scalar multiplication
@@ -162,22 +160,20 @@ class Matrix
 
     const Matrix operator*(const Matrix &M) const {
         if (m != M.m) {
-            std::cerr << "Matrix dimensions mismatch in sum, exiting.." << std::endl;
-            exit(1);
+	  std::cerr << "Dimensions mismatch, exiting.." << std::endl;
+	  exit(1);
         }
 
         Matrix C(m);
         for (int i = 0; i < m; i++) {
-            for (int j = 0; j < m; j++) {
-                for (int l = 0; l < m; l++) {
-                    C.a[i][j] += a[i][l] * M.a[l][j];
-                }
-            }
+	  for (int j = 0; j < m; j++) {
+	    for (int l = 0; l < m; l++) {
+	      C.a[i][j] += a[i][l] * M.a[l][j];
+	      }
+	  }
         }
         return C;
-
     }
-
 
     // FUNCTIONS	:::	:::	:::	:::	:::
 
@@ -225,22 +221,22 @@ class Matrix
      * Result: A is printed to the terminal
      */
     void printMatrix() {
-        std::cout << "[";		// Left bracket
-        for (int i = 0; i < m; i++) {
-            if (i != 0) {
-                std::cout << " ";	// To align left column
-            }
-            for (int j = 0; j < m; j++) {
-                std::cout << a[i][j];
-                if (j != m - 1) {
-                    std::cout << ", ";	// Separate elements in rows
-                }
-            }
-            if (i != m - 1) {
-                std::cout << std::endl;	// New row
-            }
-        }
-        std::cout << "]" << std::endl;	// Right bracket 
+      std::cout << "[";		// Left bracket
+      for (int i = 0; i < m; i++) {
+	if (i != 0) {
+	  std::cout << " ";	// To align left column
+	}
+	for (int j = 0; j < m; j++) {
+	  std::cout << a[i][j];
+	  if (j != m - 1) {
+	    std::cout << ", ";	// Separate elements in rows
+	  }
+	}
+	if (i != m - 1) {
+	  std::cout << std::endl;	// New row
+	}
+      }
+      std::cout << "]" << std::endl;	// Right bracket 
     }
 
     /* Matrix infinity norm norm_inf(A) = max(norm_1(r1),...,norm_1(rm))
@@ -248,22 +244,23 @@ class Matrix
      * Result: x is norm_inf(A)
      */
     double norm() {
-        double norm = 0, temp_sum;
-        for (int i = 0; i < m; i++) {
-            temp_sum = 0;
-            for (int j = 0; j < m; j++) {
-                temp_sum += fabs(a[i][j]);
-            }
-            if (temp_sum > norm) {
-                norm = temp_sum;
-            }
-        }
-        return norm;
+      double norm = 0, temp_sum;
+      for (int i = 0; i < m; i++) {
+	temp_sum = 0;
+	  for (int j = 0; j < m; j++) {
+	    temp_sum += fabs(a[i][j]);
+	  }
+	  if (temp_sum > norm) {
+	    norm = temp_sum;
+	  }
+      }
+      return norm;
     }
+
+    // Returns the size of the matrix
     int sizeMatrix() {
       return m;
     }
-
 };
 
 #endif

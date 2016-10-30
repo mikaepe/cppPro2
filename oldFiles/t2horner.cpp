@@ -18,7 +18,8 @@ using namespace std;
 
 // Function Declarations 	::	::	::	::
 
-Matrix myexp(int m, Matrix A, double tol=1e-10);
+Matrix myexp(int m, Matrix A);
+Matrix myexpWoH(int m, Matrix A, double tol=1e-10);
 
 // Function Definitions	::	::	::	::	::
 
@@ -48,26 +49,54 @@ int main(int argc, char *argv[])
   expA.printMatrix();
 
   Matrix myexpA = myexp(m,A);
-  cout << "own implementation: exp(A) = " << endl;
+  cout << "myexp: exp(A) = " << endl;
   myexpA.printMatrix();
+  
+  Matrix myexpAwoH = myexpWoH(m,A);
+  cout << "myexpwoH: exp(A) = " << endl;
+  myexpAwoH.printMatrix();
 
   Matrix M(A.sizeMatrix());
   M = expA;
   M -= myexpA;
-  double n = M.norm();			// For comparison
+  double n1 = M.norm();
+  M = expA;
+  M -= myexpAwoH;
+  double n2 = M.norm();
 
   cout << fixed << setprecision(15);
 
-  cout << "norm expA-myexpA = " << n << endl;
+  cout << "norm matlab-horner = " << n1 << endl;
+  cout << "norm matlab-woH    = " << n2 << endl;
 
   return 0;
 }
 
-/* Function myexp is an straight forward implementation of the exponential
+/* Function myexp is an implementation of the exponential
+ * functions series representation i.e. the McLaurin
+ * series. Horners algorithm used as in proj. 1.
+ */
+Matrix myexp(int m, Matrix A)
+{
+  Matrix I(m);
+  I.identity();
+  Matrix res(m);
+  res = I;
+  for (int i = 40; i > 0; i--)
+  {
+    res *= A;
+    res *= ((double) 1 / (double) i);
+    res += I;	
+  }
+  return res;
+}
+
+
+/* Function myexpWoH is an straight forward implementation of the exponential
  * functions series representation i.e. the McLaurin
  * series without Horners algorithm
  */
-Matrix myexp(int m, Matrix A, double tol)
+Matrix myexpWoH(int m, Matrix A, double tol)
 {
     double norm = 1.0;
     Matrix term(m);

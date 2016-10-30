@@ -11,6 +11,7 @@
 // Function Declarations 	::	::	::	::
 
 double myexp(double x, double tol=1e-10);	
+double myexpHorner(double x);
 
 // Function Definitions		::	::	::	::
 
@@ -21,14 +22,16 @@ using namespace std;
 int main(int argc, char *argv[])
 {
   double x;
-  cout << "x = "; cin >> x;		// user input x
-  cout << fixed << setprecision(12);	
+  cout << "x = "; cin >> x;
+  cout << fixed << setprecision(12);
 
-  double expx = exp(x);			// cmath function
-  double myexpx = myexp(x);		// own implementation
+  double expx = exp(x);
+  double myexpH = myexpHorner(x);
+  double myexpx = myexp(x);
 
   cout << "cmath:  exp(x) = " << expx << endl;
   cout << "myexp:  exp(x) = " << myexpx << endl;
+  cout << "myexpH: exp(x) = " << myexpH << endl;
  
   return 0;
 }
@@ -53,3 +56,13 @@ double myexp(double x, double tol)
     return res;
 }
 
+// Implementation of Horners algorithm to compare with
+double myexpHorner(double x)
+{
+  double res = 1;
+  for (int i = 40; i>0; i--)
+  {					
+    res = 1+x*res/i;
+  }
+  return res;
+}

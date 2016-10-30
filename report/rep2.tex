@@ -59,11 +59,10 @@ To validate our routine we check it against the exponential function from the
 standard library (i.e. \texttt{cmath}) for some values of $x$. 
 The results are shown in Table \ref{TABtask1}.
 An alternative to implement the series by summing term by term is to use Horners algorithm, 
-a problem with this approach however is to get an estimate of the error. Since this algorithm 
+a problem with this approach however is to get an estimate of the error. This is due
+to the fact that this algorithm 
 needs to have $N$ from the beginning to get an estimate of the error one would have to compute the
-whole series for some $N$ and then recompute it for $N+1$. For reference we included 
-a series implemented with Horners algorithm using constant $N = 40$. This is 
-\texttt{myexpH} in Table \ref{TABtask1}.
+whole series for some $N$ and then recompute it for $N+1$.
 
 \begin{table}[!ht]
 \centering 
@@ -81,122 +80,243 @@ a series implemented with Horners algorithm using constant $N = 40$. This is
     \hline
     \texttt{cmath}	& 0.367879441171 & 1.000\dots & 2.718281828459 & 148.413159102577 \\
     \texttt{myexp}	& 0.367879441172 & 1.000\dots & 2.718281828458 & 148.413159102572 \\
-    \texttt{myexpH}	& 0.367879441171 & 1.000\dots & 2.718281828459 & 148.413159102577 \\
     \vspace{-2mm} \\ \hline
     \texttt{ }& \multicolumn{2}{l}{\texttt{x = 10}} & \multicolumn{2}{l}{\texttt{x = 15}} \\
     \texttt{cmath}	& \multicolumn{2}{l}{22026.465794806718} & 
     \multicolumn{2}{l}{3269017.372472110670}\\
     \texttt{myexp}	& \multicolumn{2}{l}{22026.465794806707} & 
     \multicolumn{2}{l}{3269017.372472110670}\\
-    \texttt{myexpH}	& \multicolumn{2}{l}{22026.465794806280} & 
-    \multicolumn{2}{l}{3269017.295864568558}\\
      \vspace{-2mm} \\ \hline
     \texttt{ }& \multicolumn{2}{l}{\texttt{x = 20}} & \\
     \texttt{cmath}	& \multicolumn{2}{l}{485165195.409790277481} \\
     \texttt{myexp}	& \multicolumn{2}{l}{485165195.409790456295} \\
-    \texttt{myexpH}	& \multicolumn{2}{l}{485152859.445135474205} \\ 
   \end{tabular}
 \end{table}
 
 
-
-\begin{table}[!ht]
-\centering 
-  \begin{minipage}[t]{105mm}
-    \caption{
-      Result for some selected values of $x$ and $N$.
-    } 
-    \label{TABtask12}
-  \end{minipage}
-
-  \vspace{5mm}
-  \begin{tabular}{l l l l} 
-    \texttt{x}&\texttt{N}&\texttt{sin err/N+1term} & \texttt{cos err/N+1term} \\
-    \hline
-    \texttt{-1}	& \texttt{1}	& \texttt{0.97651818} & \texttt{0.96725534} 	\\
-    \texttt{-1}	& \texttt{2}	& \texttt{0.98623657} & \texttt{0.98233977} 	\\
-    \texttt{-1}	& \texttt{5}	& \texttt{0.99525535} & \texttt{0.99452832} 	\\
-    \texttt{-1}	& \texttt{10}	& \texttt{nan} & \texttt{nan} 	\\
-    \hline 
-    \texttt{1}	& \texttt{2}	& \texttt{0.98623657} & \texttt{0.98233977} 	\\
-    \texttt{1}	& \texttt{5}	& \texttt{0.99525535} & \texttt{0.99452832} 	\\
-    \hline
-    \texttt{2}	& \texttt{2} 	& \texttt{0.94641382} & \texttt{0.93165191}	\\
-    \texttt{2}	& \texttt{5}	& \texttt{0.98122925} & \texttt{0.97838354}	\\
-    \hline
-    \texttt{3}	& \texttt{3}	& \texttt{0.92270632} & \texttt{0.90649330}	\\
-    \texttt{3}	& \texttt{5}	& \texttt{0.95852439} & \texttt{0.95235057}	\\
-    \texttt{3}	& \texttt{10}	& \texttt{0.98513048} & \texttt{0.98392664}	\\
-    \hline
-    \texttt{5}	& \texttt{3}	& \texttt{0.80518429} & \texttt{0.76830018}	\\
-    \texttt{5}	& \texttt{5}	& \texttt{0.89113977} & \texttt{0.87584989}	\\
-    \texttt{5}	& \texttt{10}	& \texttt{0.95977271} & \texttt{0.95639607}	\\
-    \hline
-    \texttt{10}	& \texttt{3}	& \texttt{0.47425379} & \texttt{0.41141849}	\\
-    \texttt{10}	& \texttt{5}	& \texttt{0.65781950} & \texttt{0.62076516}	\\
-    \texttt{10}	& \texttt{10}	& \texttt{0.85443812} & \texttt{0.84340922}	\\
-    \texttt{10}	& \texttt{15}	& \texttt{0.92187411} & \texttt{0.91747435}	\\
-    \texttt{10}	& \texttt{20}	& \texttt{0.94971903} & \texttt{0.94954946}	\\
-  \end{tabular}
-\end{table}
-
-\FloatBarrier
-\newpage
-The output of the program used in task 1 is of the following form, note that the user has to input
-the values of interest ($x$ and $N$).
+\noindent
+The program for task 1 is used, and gives outputs, as follow (note that the user has to input $x$):
 \begin{center}
 \begin{minipage}[t]{85mm}
 \begin{lstlisting}
-user@computer:~$ ./pro1_t1 
-x = -1
-N = 1
-cmath:   sin(x) = -0.84147098
-Taylor:  sin(x) = -0.83333333
-cmath:   cos(x) = 0.54030231
-Taylor:  cos(x) = 0.50000000
-sin N+1-term = -0.00833333
-cos N+1-term = 0.04166667
-sin err/N+1term = 0.97651818
-cos err/N+1term = 0.96725534
+user@computer:~$ ./t1 
+x = 1.75
+iterations performed (myexp): 17
+cmath:  exp(x) = 5.754602676006
+myexp:  exp(x) = 5.754602676002
 user@computer:~$ 
 \end{lstlisting}
 \end{minipage}
 \end{center}
 
 \subsubsection*{Task 2}
-In the second task we implemented the Taylor series for the exponential of a square matrix $A$, that is $\exp(A) = \sum_{n=0}^\infty \frac{A^{n}}{n!}$. 
-
+In the second task we implemented the Taylor series for 
+the exponential of a square matrix $A$, that is 
+\begin{equation*}
+  \exp(A) = \sum_{n=0}^\infty \frac{A^{n}}{n!}.
+\end{equation*}
 To be able to compute the sum we implemented a class for square matrices. The class has as private members the dimension $m$ of the square matrix and $a$ which is a pointer to an array of pointers to arrays each containing a row of the matrix. 
-
 We have the following constructors:
 \begin{itemize}
-\item Matrix(): the default constructor
-\item Matrix(int mm): initializes a square matrix of dimension mm filled with zeros
-\item Matrix(const Matrix \&M): the copy constructor which does a deep copy of the Matrix M
+  \item \texttt{Matrix()} the default constructor
+  \item \texttt{Matrix(int mm)} initializes a square matrix of dimension mm filled with zeros
+  \item \texttt{Matrix(const Matrix \&M)} copy constructor which does a deep copy of the Matrix M
 \end{itemize}
 We also have a destructor which deletes $a$.
-
 To be able to compute our sum we did the following operator overloadings: 
 \begin{itemize}
-\item Matrix \&operator=(const Matrix \&M): equates Matrix to M by deep copy
-\item Matrix \&operator+=(const Matrix \&M): adds elements of M to matrix
-\item Matrix \&operator*=(const Matrix \&M): performs matrix multiplication with matrix M and substitutes the original matrix with the new product
-\item Matrix \&operator*=(const double d): performs multiplication with scalar d for each element in matrix
-\item Matrix \&operator*(const Matrix \&M): performs matrix multiplication with matrix M and returns this as a new matrix
+  \item \texttt{Matrix \&operator=(const Matrix \&M)} equates Matrix to M by deep copy
+  \item \texttt{Matrix \&operator+=(const Matrix \&M)} adds elements of M to matrix
+  \item \texttt{Matrix \&operator-=(const Matrix \&M)} subtracts elements of M to matrix
+  \item \texttt{Matrix \&operator*=(const Matrix \&M)} performs matrix multiplication with matrix M and substitutes the original matrix with the new product
+  \item \texttt{Matrix \&operator*=(const double d)} performs 
+    multiplication with scalar d for each element in matrix
+  \item \texttt{Matrix \&operator*(const Matrix \&M)} performs matrix multiplication with matrix M and returns this as a new matrix
 \end{itemize}
-
 Finally we have some functions for our matrix class:
 \begin{itemize}
-\item void fillMatrix(double b[]): fills the matrix with the elements in b[] column wise
-\item void makeMatrix(): prompts the user to fill the rows of the matrix
-\item void identity(): transforms the matrix to an identity matrix
-\item void printMatrix(): prints the matrix using std::cout
-\item double norm(): computes and returns the infinity norm of the matrix
+  \item \texttt{void fillMatrix(double b[])} fills the matrix with the elements in b[] column wise
+  \item \texttt{void identity()} transforms the matrix to an identity matrix
+  \item \texttt{void printMatrix()} prints the matrix using std::cout
+  \item \texttt{double norm()} computes and returns the infinity norm of the matrix
+  \item \texttt{int sizeMatrix()} returns the size of the matrix
 \end{itemize}
 
-When we had implemented our class we computed the Taylor series similar to the implementation in task 1. We included all terms of the sum until the first term with a norm smaller than $tol$.
+When we had implemented our class we computed the Taylor series similar to the 
+implementation in task 1. We included all terms of the sum until the 
+first term with a norm smaller than \texttt{tol}.
+To validate our routine we check it against the p
+rovided routine, \texttt{r8mat\_expm1.cpp}.
+Some results are shown in \ref{TABtask2}.
 
-To validate our routine we check it against the provided routine, \verb|r8mat_expm1.cpp|. The results are shown in \ref{TABtask2}.
+
+\begin{table}[!ht]
+\centering 
+  \begin{minipage}[t]{105mm}
+    \caption{
+      Performance of the matrix Taylor series implementation shown for some matrices $A$. 
+      The tolerance used was set to \texttt{tol = 1e-10}. 
+    } 
+    \label{TABtask2}
+  \end{minipage}
+
+  \vspace{6mm}
+  \begin{tabular}{l l l l l l} 
+    \texttt{ }&$A = 
+    \left[ \begin{array}{cc}
+      1 & 0 \\
+      0 & -1 
+    \end{array}
+    \right]$
+    & $A = 
+    \left[ \begin{array}{cc}
+      0 & 10 \\
+      0 & 0 
+    \end{array}
+    \right]$ &  $A = 
+    \left[ \begin{array}{cc}
+      1 & 2 \\
+      5 & 6 
+    \end{array}
+    \right]$  \vspace{2mm} \\
+    \hline \\ 
+    \texttt{r8mat}	& 
+    $\left[
+      \begin{array}{cc}
+	2.17828 & 0.00000 \\
+	0.00000 & 0.36788
+      \end{array}
+    \right]$ & 
+    $\left[
+      \begin{array}{cc}
+	1.00000 &10.00000 \\
+	0.00000 & 1.00000
+      \end{array}
+    \right]$ &
+    $\left[
+      \begin{array}{cc}
+	354.70420 & 462.55578 \\
+	1156.38945 & 1511.09365
+      \end{array}
+    \right]$\vspace{2mm} \\
+    \texttt{myexp}	& 
+    $\left[
+      \begin{array}{cc}
+	2.17828 & 0.00000 \\
+	0.00000 & 0.36788
+      \end{array}
+    \right]$ &
+    $\left[
+      \begin{array}{cc}
+	1.00000 &10.00000 \\
+	0.00000 & 1.00000
+      \end{array}
+    \right]$ & 
+    $\left[
+      \begin{array}{cc}
+	354.70420 & 462.55578 \\
+	1156.38945 & 1511.09365
+      \end{array}
+    \right]$ 
+    \vspace{2mm} \\
+    $||\texttt{r8mat-myexp}||_\infty$ & 0.000000000000816 & 
+     0.000000000000000 &  0.000000000018190 \\
+    \vspace{-2mm} \\ \hline \\
+    \texttt{ }&\multicolumn{3}{l}{$A = 
+    \left[ \begin{array}{cccc}
+      1 & 0 & 0 & 0\\
+      0 & -1 & 0 & 0 \\
+      0 & 0 & 5 & 0 \\
+      0 & 0 & 0 & 10 
+    \end{array}
+    \right]$}  \vspace{2mm} \\
+    \hline \\ 
+    \texttt{r8mat}	& 
+    \multicolumn{3}{l}{
+    $\left[
+      \begin{array}{cccc}
+	2.17828 & 0.00000 & 0.00000 & 0.00000 \\
+	0.00000 & 0.36788 & 0.00000 & 0.00000 \\
+	0.00000 & 0.00000 & 148.41316 & 0.00000 \\
+	0.00000 & 0.00000 & 0.00000 & 22026.46579
+      \end{array}
+    \right]$ } \vspace{2mm} \\
+    \texttt{myexp}	& 
+    \multicolumn{3}{l}{
+    $\left[
+      \begin{array}{cccc}
+	2.17828 & 0.00000 & 0.00000 & 0.00000 \\
+	0.00000 & 0.36788 & 0.00000 & 0.00000 \\
+	0.00000 & 0.00000 & 148.41316 & 0.00000 \\
+	0.00000 & 0.00000 & 0.00000 & 22026.46579
+      \end{array}
+    \right]$} \vspace{2mm} \\
+    $||\texttt{r8mat-myexp}||_\infty$ & 0.000000000003638  \\
+    \vspace{-2mm} \\ \hline
+  \\
+  \texttt{ }&\multicolumn{3}{l}{$A = 
+    \left[ \begin{array}{cccc}
+      1 & 5 & 10 \\
+      -1 & -1 & -1 \\
+      1 & 1 & 1 
+    \end{array}
+    \right]$}  \vspace{2mm} \\
+    \hline \\ 
+    \texttt{r8mat}	& 
+    \multicolumn{3}{l}{
+    $\left[
+      \begin{array}{cccc}
+	9.99487 &  23.07888 & 40.68389 \\
+	 -3.52100 & -6.90010 & -13.37397 \\
+	  3.52100 &  7.90010 & 14.37397
+      \end{array}
+    \right]$ } \vspace{2mm} \\
+    \texttt{myexp}	& 
+    \multicolumn{3}{l}{
+    $\left[
+      \begin{array}{cccc}
+	9.99487 &  23.07888 & 40.68389 \\
+	 -3.52100 & -6.90010 & -13.37397 \\
+	  3.52100 &  7.90010 & 14.37397
+      \end{array}
+    \right]$} \vspace{2mm} \\
+    $||\texttt{r8mat-myexp}||_\infty$ & 0.000000000004794  \\
+    \vspace{-2mm} \\ \hline
+
+\end{tabular}
+\end{table}
+
+\FloatBarrier
+
+
+
+\noindent
+An example of the program output (again, the user has to input the size of the matrix and then the rows of the matrix) is given below:
+\begin{center}
+\begin{minipage}[t]{85mm}
+\begin{lstlisting}
+user@computer:~$ ./t2 
+Size of square matrix: 2
+(elements separated by blanks)
+row 1:
+1 2
+row 2:
+3 4
+A = 
+[1, 2
+ 3, 4]
+given function: exp(A) = 
+[51.96896, 74.73656
+ 112.10485, 164.07380]
+own implementation: exp(A) = 
+[51.96896, 74.73656
+ 112.10485, 164.07380]
+norm expA-myexpA = 0.000000000008299
+user@computer:~$ 
+\end{lstlisting}
+\end{minipage}
+\end{center}
+
 
 \newpage
 \subsubsection*{Code for task 1}
