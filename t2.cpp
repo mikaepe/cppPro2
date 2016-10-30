@@ -8,7 +8,7 @@
 #include<iostream>
 #include<cmath>
 #include<iomanip>
-#include<cstdlib>		// Behövdes för exit(1)..
+#include<cstdlib>
 #include "matrix.hpp"
 
 // Function Definitions		::	::	::	::
@@ -23,9 +23,8 @@ using namespace std;
 Matrix myexp(int m, Matrix A);
 Matrix myexpWoH(int m, Matrix A, double tol=1e-10);
 
-/* main function, calls myexp and compares with given exp
- * blah
- * blah
+/* main function, asks user to input matrix, then
+ * calls myexp and compares with given expm from r8
  */
 int main(int argc, char *argv[])
 {
