@@ -144,9 +144,9 @@ Finally we have some functions for our matrix class:
 
 When we had implemented our class we computed the Taylor series similar to the 
 implementation in task 1. We included all terms of the sum until the 
-first term with a norm smaller than \texttt{tol}.
-To validate our routine we check it against the p
-rovided routine, \texttt{r8mat\_expm1.cpp}.
+first term with a norm smaller than \texttt{tol}. Since this is not a very reliable method for computing the Taylor series, we get some incorrect values if we use matrices with large dimension and/or large values.
+
+To validate our routine we check it against the provided routine, \texttt{r8mat\_expm1.cpp}.
 Some results are shown in \ref{TABtask2}.
 
 
