@@ -2,13 +2,11 @@
  * Task 1: Compute exp(x) for real numbers
  */
 
-
 // Libraries	::	::	::	::	::	::
 
 #include<iostream>
 #include<cmath>
 #include<iomanip>
-
 
 // Function Declarations 	::	::	::	::
 
@@ -26,7 +24,6 @@ int main(int argc, char *argv[])
   double x;
   cout << "x = "; cin >> x;
   cout << fixed << setprecision(12);
-  
 
   double expx = exp(x);
   double myexpH = myexpHorner(x);
@@ -39,10 +36,8 @@ int main(int argc, char *argv[])
   return 0;
 }
 
-
-/* Function myexp is an straight forward implementation of the exponential
- * functions series representation i.e. the McLaurin
- * series without Horners algorithm
+/* fctn myexp is a straight forward implementation of the exponential
+ * series representation i.e. the McLaurin series without Horners algorithm
  */
 double myexp(double x, double tol)
 {
@@ -52,7 +47,7 @@ double myexp(double x, double tol)
     {
         term *= (x/ (double) i);
         if (abs(term) < tol){
-	  cout << "iterations performed     (WoH): " << i << endl;
+	  cout << "iterations performed (myexp): " << i << endl;
 	  res += term;
 	  break;
         }
@@ -61,16 +56,13 @@ double myexp(double x, double tol)
     return res;
 }
 
-/* Implementation of Horners algorithm to compare with
- */
+// Implementation of Horners algorithm to compare with
 double myexpHorner(double x)
 {
   double res = 1;
   for (int i = 40; i>0; i--)
-  {					// Horners algorithm (to avoid
-    res = 1+x*res/i;		// adding small doubles to large)
+  {					
+    res = 1+x*res/i;
   }
-  
-
   return res;
 }

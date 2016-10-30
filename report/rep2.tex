@@ -58,7 +58,12 @@ sum which included all terms until the first term less than \texttt{tol}.
 To validate our routine we check it against the exponential function from the 
 standard library (i.e. \texttt{cmath}) for some values of $x$. 
 The results are shown in Table \ref{TABtask1}.
-
+An alternative to implement the series by summing term by term is to use Horners algorithm, 
+a problem with this approach however is to get an estimate of the error. Since this algorithm 
+needs to have $N$ from the beginning to get an estimate of the error one would have to compute the
+whole series for some $N$ and then recompute it for $N+1$. For reference we included 
+a series implemented with Horners algorithm using constant $N = 40$. This is 
+\texttt{myexpH} in Table \ref{TABtask1}.
 
 \begin{table}[!ht]
 \centering 
@@ -195,7 +200,7 @@ To validate our routine we check it against the provided routine, \verb|r8mat_ex
 
 \newpage
 \subsubsection*{Code for task 1}
-%\lstinputlisting[language=C++]{../t1.cpp}
+\lstinputlisting[language=C++,basicstyle=\scriptsize]{../t1.cpp}
 
 
 \newpage
