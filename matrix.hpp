@@ -182,17 +182,6 @@ class Matrix
 
     // FUNCTIONS	:::	:::	:::	:::	:::
 
-    /* Usage: A.fillTestMatrix(); where A is a Matrix object
-     * Result: A is a matrix with elements A_ij = i*j
-     */
-    void fillTestMatrix() {
-      for (int i = 0; i < m; i++) {
-	for (int j = 0; j < m; j++) {
-	  a[i][j] = (i+1)*(j+1);
-	}
-      }
-    }
-
     /* Usage: A.fillMatrix(b); where b is an array of 
      * length m*m of doubles
      * Result: A matrix with columns from m elements from b.
