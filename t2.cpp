@@ -16,9 +16,7 @@
 using namespace std;
 
 #include "r8lib.cpp"
-//#include "r8lib.h"		// Behövs inte (r8lib.cpp öppnar den)
 #include "r8mat_expm1.cpp"
-//#include "r8mat_expm1.h"	// Behövs inte heller
 
 // Function Declarations 	::	::	::	::
 
@@ -31,21 +29,23 @@ Matrix myexpWoH(int m, Matrix A, double tol=1e-10);
  */
 int main(int argc, char *argv[])
 {
-  int m = 3;
-  double a[9] = {1, 2, 3, 1, 2, 3, 1, 2, 3};
-  /* NILPOTENT:
-  int m = 3;
-  double a[16] = {0,0,0,2,0,0,1,2,0};
-  */
-  Matrix A(m);
-  A.fillMatrix(a);
-  A.printMatrix();
+  cout << "Size of square matrix: ";	// Ask user for size
+  int m; cin >> m; double a[m*m];
+  cout << "(elements separated by blanks)" << endl;
+  for (int i = 0; i < m; i++){		// Array to fill matrix
+    cout << "row " << i+1 << ":" << endl;
+    for (int j = 0; j < m; j++){
+      cin >> a[i+j*m];
+    }
+  }
+  Matrix A(m); A.fillMatrix(a);		// Own Matrix class
+  cout << "A = " << endl; A.printMatrix();
   
   cout << fixed << setprecision(5);
 
-  double* expAarray = r8mat_expm1(m, a);
+  double* expAr8 = r8mat_expm1(m, a);
   Matrix expA(m);
-  expA.fillMatrix(expAarray);
+  expA.fillMatrix(expAr8);
   cout << "given function: exp(A) = " << endl;
   expA.printMatrix();
 
@@ -83,11 +83,11 @@ Matrix myexp(int m, Matrix A)
   I.identity();
   Matrix res(m);
   res = I;
-  for (int i = 100; i > 0; i--)
+  for (int i = 40; i > 0; i--)
   {
     res *= A;
     res *= ((double) 1 / (double) i);
-    res += I;			// TODO : Använd tol på lämpligt vis
+    res += I;	
   }
   return res;
 }

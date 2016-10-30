@@ -1,5 +1,4 @@
-/* Matrix class
- */
+// Matrix class (Hanna Hultin, Mikael Persson)
 
 #ifndef MATRIX_HPP
 #define MATRIX_HPP
@@ -62,7 +61,6 @@ class Matrix
 
     /* Equality operator:
      * Equates Matrix to M (other Matrix object)
-     * Usage: TODO
      */
     Matrix &operator=(const Matrix &M) {
         if (this == &M) {
@@ -208,21 +206,6 @@ class Matrix
       }
     }
 
-    /* Usage: A.makeMatrix(m); where m is an int of requested size
-     * for the matrix.
-     * Result: The user is prompted to fill the rows of the matrix
-     */
-    void makeMatrix() {
-      for (int i = 0; i < m; i++) {
-	std::cout << "row " << i+1 << ":" << std::endl;
-	std::cout << "(elements separated by blanks)" << std::endl;
-	for (int j = 0; j < m; j++) {
-	  std::cin >> a[i][j];
-	}
-	std::cout << std::endl;
-      }
-    }
-
     /* Usage: A.identity(); where A is Matrix object
      * Result: A identity matrix (1's on diag, 0's rest)
      */
@@ -277,7 +260,6 @@ class Matrix
         }
         return norm;
     }
-
     int sizeMatrix() {
       return m;
     }
