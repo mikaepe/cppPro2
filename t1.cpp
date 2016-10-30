@@ -53,6 +53,7 @@ double myexp(double x, double tol)
         term *= (x/ (double) i);
         if (abs(term) < tol){
 	  cout << "iterations performed     (WoH): " << i << endl;
+	  res += term;
 	  break;
         }
         res += term;
@@ -65,7 +66,7 @@ double myexp(double x, double tol)
 double myexpHorner(double x)
 {
   double res = 1;
-  for (int i = 30; i>0; i--)
+  for (int i = 40; i>0; i--)
   {					// Horners algorithm (to avoid
     res = 1+x*res/i;		// adding small doubles to large)
   }
